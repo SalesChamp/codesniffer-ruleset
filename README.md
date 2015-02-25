@@ -88,6 +88,7 @@ Differences from PSR-2
 - Enable inline methods in case there is no method body.
 - Usage of 'boolean' in typehints is forbidden. Use 'bool' only.
 - Disabled absolute namespace usage. Import everything with 'use' statement
+- Forced 1 space before/after any operators
 
 Generating documentation
 ------------------------
