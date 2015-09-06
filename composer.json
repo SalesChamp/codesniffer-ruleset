@@ -1,8 +1,8 @@
 {
   "name": "dotblue/codesniffer-ruleset",
   "require-dev": {
-    "nette/tester": "~1.3",
-    "squizlabs/php_codesniffer": "~2.1"
+    "nette/tester": "~1.5",
+    "squizlabs/php_codesniffer": "~2.3"
   },
   "autoload-dev": {
     "classmap": ["DotBlue/tests/helpers"]
