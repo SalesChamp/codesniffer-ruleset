@@ -5,7 +5,6 @@
     <description>DotBlue company code standard.</description>
 
     <exclude-pattern>*/vendor/*</exclude-pattern>
-    <exclude-pattern>*/libs/*</exclude-pattern>
     <exclude-pattern>*/temp/*</exclude-pattern>
 
     <rule ref="PSR2">
