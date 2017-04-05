@@ -10,14 +10,17 @@ $tester->setFile('PropertySpacing_1')
     ->setSniff('WhiteSpace.PropertySpacing')
     ->expectMessage('Must have 3 spaces between properties with different visibility scopes, found 2')
     ->onLine(9)
+    ->isFixable()
     ->getFile()
     ->expectMessage('Must have 3 spaces between properties with different visibility scopes, found 1')
-    ->onLine(12);
+    ->onLine(12)
+    ->isFixable();
 
 $tester->setFile('PropertySpacing_2')
     ->setSniff('WhiteSpace.PropertySpacing')
     ->expectMessage('Must have 2 spaces between properties, found 1')
-    ->onLine(9);
+    ->onLine(9)
+    ->isFixable();
 
 $tester->setFile('PropertySpacing_3')
     ->setSniff('WhiteSpace.PropertySpacing')
