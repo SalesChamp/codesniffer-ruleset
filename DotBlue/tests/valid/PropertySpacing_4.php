@@ -3,25 +3,16 @@
 class Foo
 {
 
+    /**
+     * @var string
+     */
     private $a;
 
 
-    private $b;
 
     /**
-     * @var string
+     * constructor
      */
-    private $c;
-
-
-
-    /**
-     * @var string
-     */
-    private $d;
-
-
-
     public function __construct() { }
 
 }

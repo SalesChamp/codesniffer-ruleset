@@ -91,11 +91,11 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 		} else {
 			$nextContent = $phpcsFile->findNext(T_WHITESPACE, ($semicolon + 1), null, true);
 			$phpcsFile->fixer->beginChangeset();
-			for ($i = $semicolon + 1; $i < ($nextContent - 1); $i++) {
+			for ($i = $semicolon + 1; $i < ($nextContent - 2); $i++) {
 				$phpcsFile->fixer->replaceToken($i, '');
 			}
 
-			$phpcsFile->fixer->replaceToken($i, str_repeat($phpcsFile->eolChar, $expected));
+			$phpcsFile->fixer->replaceToken($i, str_repeat($phpcsFile->eolChar, $expected - 1));
 			$phpcsFile->fixer->endChangeset();
 		}
 	}

@@ -30,5 +30,11 @@ $tester->setFile('PropertySpacing_3')
     ->expectMessage('Property visibility must be ordered from private to protected to public, found T_PROTECTED, next is T_PRIVATE')
     ->onLine(10);
 
+$tester->setFile('PropertySpacing_4')
+    ->setSniff('WhiteSpace.PropertySpacing')
+    ->expectMessage('Must have 3 spaces between last property and first function, found 5')
+    ->onLine(9)
+    ->isFixable();
+
 
 $tester->test();
