@@ -70,13 +70,13 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 							($expected === 4 ? " with different visibility scopes" : ""),
 							$diff - 1,
 						]);
-						if ($fix === true) {
+						if ($fix === TRUE) {
 							self::fixSpacing($phpcsFile, $semicolon, $diff, $expected);
 						}
 					}
 				} elseif ($diff !== 4) {
 					$fix = $phpcsFile->addFixableError("Must have 3 empty lines between last property and first function, found %d", $stackPtr, 'EmptyLines', [$diff - 1]);
-					if ($fix === true) {
+					if ($fix === TRUE) {
 						self::fixSpacing($phpcsFile, $semicolon, $diff, 4);
 					}
 				}

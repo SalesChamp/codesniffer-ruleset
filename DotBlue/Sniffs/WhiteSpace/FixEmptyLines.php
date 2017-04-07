@@ -4,6 +4,7 @@ namespace DotBlue\Sniffs\WhiteSpace;
 
 use PHP_CodeSniffer_File;
 
+
 trait FixEmptyLines
 {
 
@@ -13,7 +14,7 @@ trait FixEmptyLines
 			$padding = str_repeat($phpcsFile->eolChar, $expected - $diff);
 			$phpcsFile->fixer->addContent($updateFrom, $padding);
 		} else {
-			$nextContent = $phpcsFile->findNext(T_WHITESPACE, ($updateFrom + 1), null, true);
+			$nextContent = $phpcsFile->findNext(T_WHITESPACE, ($updateFrom + 1), NULL, TRUE);
 			$phpcsFile->fixer->beginChangeset();
 			for ($i = $updateFrom + 1; $i < ($nextContent - 2); $i++) {
 				$phpcsFile->fixer->replaceToken($i, '');
