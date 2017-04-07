@@ -44,12 +44,12 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 			if ($next) {
 				$diff = abs($tokens[$next]['line'] - $tokens[$semicolon]['line']);
 				$function = $phpcsFile->findNext(T_FUNCTION, $next + 1);
-				// if there is no variable between whatever we
-				// found and the function, this is the last
-				// variable and there should be three spaces
+				// if there is no variable between whatever we found
+				// and the function, this is the last variable and
+				// there should be three empty lines
 				$variable = $phpcsFile->findNext(T_VARIABLE, $next + 1, $function);
 				if ($variable) {
-					// we want three spaces between different
+					// we want three empty lines between different
 					// visibility levels, otherwise two
 					$expected = 3;
 					$nextModifier = $phpcsFile->findNext(PHP_CodeSniffer_Tokens::$scopeModifiers, ($stackPtr + 1), $variable);
@@ -65,7 +65,7 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 						$expected = 4;
 					}
 					if ($diff !== $expected) {
-						$fix = $phpcsFile->addFixableError("Must have %d spaces between properties%s, found %d", $stackPtr, 'EmptyLines', [
+						$fix = $phpcsFile->addFixableError("Must have %d empty lines between properties%s, found %d", $stackPtr, 'EmptyLines', [
 							$expected - 1,
 							($expected === 4 ? " with different visibility scopes" : ""),
 							$diff - 1,
@@ -75,7 +75,7 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 						}
 					}
 				} elseif ($diff !== 4) {
-					$fix = $phpcsFile->addFixableError("Must have 3 spaces between last property and first function, found %d", $stackPtr, 'EmptyLines', [$diff - 1]);
+					$fix = $phpcsFile->addFixableError("Must have 3 empty lines between last property and first function, found %d", $stackPtr, 'EmptyLines', [$diff - 1]);
 					if ($fix === true) {
 						self::fixSpacing($phpcsFile, $semicolon, $diff, 4);
 					}
