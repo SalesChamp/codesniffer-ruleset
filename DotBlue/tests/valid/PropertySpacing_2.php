@@ -15,6 +15,12 @@ class Foo
     private $c;
 
 
+    /**
+     * @var string
+     */
+    private $d;
+
+
 
     public function __construct() { }
 
