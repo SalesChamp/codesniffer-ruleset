@@ -140,6 +140,8 @@ class NegativeExpectation implements Expectation
 		if ($status === 1) {
 			$content = file_get_contents(Tester::$setup['invalidDir'] . $this->testedFile->getName() . '.php.fixed');
 			Assert::matchFile(Tester::$setup['validDir'] . $this->testedFile->getName() . '.php', $content);
+		} else {
+			Assert::fail(sprintf("Fixer was unable to fix %s:\n%s", $this->testedFile->getName(), implode("\n", $out)));
 		}
 	}
 
