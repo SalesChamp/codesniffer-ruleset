@@ -10,6 +10,10 @@ use PHP_CodeSniffer_Standards_AbstractVariableSniff;
 class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff
 {
 
+	use FixEmptyLines;
+
+
+
 	const ALLOWED_NEXT_MODIFIER = [
 		T_PRIVATE => [T_PRIVATE, T_PROTECTED, T_PUBLIC],
 		T_PROTECTED => [T_PROTECTED, T_PUBLIC],
@@ -67,36 +71,16 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 							$diff - 1,
 						]);
 						if ($fix === true) {
-							$this->fixSpacing($phpcsFile, $semicolon, $diff, $expected);
+							self::fixSpacing($phpcsFile, $semicolon, $diff, $expected);
 						}
 					}
 				} elseif ($diff !== 4) {
 					$fix = $phpcsFile->addFixableError("Must have 3 spaces between last property and first function, found %d", $stackPtr, 'EmptyLines', [$diff - 1]);
 					if ($fix === true) {
-						$this->fixSpacing($phpcsFile, $semicolon, $diff, 4);
+						self::fixSpacing($phpcsFile, $semicolon, $diff, 4);
 					}
 				}
 			}
-		}
-	}
-
-
-
-	private function fixSpacing(PHP_CodeSniffer_File $phpcsFile, $semicolon, $diff, $expected)
-	{
-		$nextWhitespace = $phpcsFile->findNext(T_WHITESPACE, $semicolon);
-		if ($diff < $expected) {
-			$padding = str_repeat($phpcsFile->eolChar, $expected - $diff);
-			$phpcsFile->fixer->addContent($nextWhitespace, $padding);
-		} else {
-			$nextContent = $phpcsFile->findNext(T_WHITESPACE, ($semicolon + 1), null, true);
-			$phpcsFile->fixer->beginChangeset();
-			for ($i = $semicolon + 1; $i < ($nextContent - 2); $i++) {
-				$phpcsFile->fixer->replaceToken($i, '');
-			}
-
-			$phpcsFile->fixer->replaceToken($i, str_repeat($phpcsFile->eolChar, $expected - 1));
-			$phpcsFile->fixer->endChangeset();
 		}
 	}
 
