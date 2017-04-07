@@ -2,26 +2,24 @@
 
 namespace DotBlue\Sniffs\WhiteSpace;
 
+use PHP_CodeSniffer_File;
 
 trait FixEmptyLines
 {
 
-	private static function fixSpacing(PHP_CodeSniffer_File $phpcsFile, $semicolon, $diff, $expected)
+	private static function fixSpacing(PHP_CodeSniffer_File $phpcsFile, $updateFrom, $diff, $expected)
 	{
-		// TODO: This method is duplicated in multiple "empty line"
-		// fixing sniffs.  Move it into a helper/trait.
-		$nextWhitespace = $phpcsFile->findNext(T_WHITESPACE, $semicolon);
 		if ($diff < $expected) {
 			$padding = str_repeat($phpcsFile->eolChar, $expected - $diff);
-			$phpcsFile->fixer->addContent($nextWhitespace, $padding);
+			$phpcsFile->fixer->addContent($updateFrom, $padding);
 		} else {
-			$nextContent = $phpcsFile->findNext(T_WHITESPACE, ($semicolon + 1), null, true);
+			$nextContent = $phpcsFile->findNext(T_WHITESPACE, ($updateFrom + 1), null, true);
 			$phpcsFile->fixer->beginChangeset();
-			for ($i = $semicolon + 1; $i < ($nextContent - 1); $i++) {
+			for ($i = $updateFrom + 1; $i < ($nextContent - 2); $i++) {
 				$phpcsFile->fixer->replaceToken($i, '');
 			}
 
-			$phpcsFile->fixer->replaceToken($i, str_repeat($phpcsFile->eolChar, $expected));
+			$phpcsFile->fixer->replaceToken($i, str_repeat($phpcsFile->eolChar, $expected - 2));
 			$phpcsFile->fixer->endChangeset();
 		}
 	}
