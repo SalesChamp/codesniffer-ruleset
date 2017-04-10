@@ -24,7 +24,7 @@ class OpeningPHPTagSpacingSniff implements PHP_CodeSniffer_Sniff
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === T_OPEN_TAG) {
-            $nextToken = $phpcsFile->findNext(T_WHITESPACE, $stackPtr+1, null, true);
+            $nextToken = $phpcsFile->findNext(T_WHITESPACE, $stackPtr+1, NULL, TRUE);
 
             if ($nextToken) {
                 $diff = $tokens[$nextToken]['line'] - $tokens[$stackPtr]['line'];
@@ -36,7 +36,7 @@ class OpeningPHPTagSpacingSniff implements PHP_CodeSniffer_Sniff
                         'OpeningTag',
                         [$diff - 1]
                     );
-                    if ($fix === true) {
+                    if ($fix === TRUE) {
                         self::fixSpacing($phpcsFile, $stackPtr, $diff, 2);
                     }
                 }
