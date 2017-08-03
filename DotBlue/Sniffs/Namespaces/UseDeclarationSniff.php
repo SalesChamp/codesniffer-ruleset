@@ -110,7 +110,6 @@ class UseDeclarationSniff extends PSR2_Sniffs_Namespaces_UseDeclarationSniff
 		}
 
 		return FALSE;
-
 	}
 
 }
