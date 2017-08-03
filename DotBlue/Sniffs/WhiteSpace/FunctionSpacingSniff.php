@@ -184,7 +184,6 @@ class FunctionSpacingSniff extends Squiz_Sniffs_WhiteSpace_FunctionSpacingSniff
 				}
 			}
 		}
-
 	}
 
 }

@@ -29,7 +29,6 @@ class MethodParametersSniff implements PHP_CodeSniffer_Sniff
 		if ($tokens[$stackPtr]['content'] === '@return') {
 			$this->processReturn($phpcsFile, $stackPtr, $tokens);
 		}
-
 	}
 
 

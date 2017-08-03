@@ -54,7 +54,6 @@ class MethodScopeSniff extends Squiz_Sniffs_Scope_MethodScopeSniff
 				$phpcsFile->fixer->endChangeset();
 			}
 		}
-
 	}
 
 
