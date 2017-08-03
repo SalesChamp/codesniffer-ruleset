@@ -53,7 +53,7 @@ class Tester
 			}
 			$sniffer->registerSniffs([
 				Tester::$setup['sniffsDir'] . '/' . str_replace('.', '/', $testedFile->getSniff()) . 'Sniff.php',
-			], []);
+			], [], []);
 			$sniffer->populateTokenListeners();
 			$testedFile->evaluate($sniffer);
 		}
