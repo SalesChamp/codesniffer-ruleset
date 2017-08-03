@@ -1,10 +1,14 @@
 {
-  "name": "dotblue/codesniffer-ruleset",
-  "require-dev": {
-    "nette/tester": "~1.3",
-    "squizlabs/php_codesniffer": "~2.5.0"
-  },
-  "autoload-dev": {
-    "classmap": ["DotBlue/tests/helpers"]
-  }
+    "name": "dotblue/codesniffer-ruleset",
+    "require": {
+        "squizlabs/php_codesniffer": "^2.9.0",
+        "slevomat/coding-standard": "^2.4",
+        "wimg/php-compatibility": "^8.0"
+    },
+    "require-dev": {
+        "nette/tester": "~1.3"
+    },
+    "autoload-dev": {
+        "classmap": ["DotBlue/tests/helpers"]
+    }
 }

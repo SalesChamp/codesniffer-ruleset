@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+
+<ruleset name="DotBlue">
+
+    <description>SalesChamp coding standard</description>
+    <arg name="tab-width" value="4"/>
+
+    <rule ref="./../DotBlue/ruleset.xml">
+        <!-- We require doc blocks to include property names if applicable -->
+        <exclude name="DotBlue.PhpDoc.MethodParameters"/>
+        <exclude name="Generic.PHP.UpperCaseConstant"/>
+        <!-- We don't want to enforce bool over boolean -->
+        <exclude name="DotBlue.Conventions.BoolNaming"/>
+        <!-- Sometimes it makes sense to provide default values for parameters that are not at the end of argument list -->
+        <exclude name="PEAR.Functions.ValidDefaultValue.NotAtEnd"/>
+        <!-- require statements in tests -->
+        <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+        <!-- Use SlevomatCodingStandard.Classes.UnusedPrivateElements instead -->
+        <exclude name="DotBlue.Php.UnusedPrivateProperties" />
+    </rule>
+
+    <rule ref="./../../../slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Namespaces/UnusedUsesSniff.php" />
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+      <properties>
+        <property name="searchAnnotations" value="true" />
+      </properties>
+    </rule>
+
+    <rule ref="./../../../slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Classes/UnusedPrivateElementsSniff.php" />
+
+    <rule ref="./../../../wimg/php-compatibility/PHPCompatibility/ruleset.xml" />
+
+    <rule ref="Squiz.Arrays.ArrayDeclaration">
+        <!-- due to tab indent -->
+        <exclude name="Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.CloseBraceNotAligned"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.ValueNotAligned"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.KeyNotAligned"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned"/>
+    </rule>
+
+    <rule ref="Squiz.Strings.DoubleQuoteUsage">
+        <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar"/>
+    </rule>
+
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+    <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+
+    <arg name="encoding" value="utf8"/>
+    <arg name="extensions" value="php,phpt"/>
+
+</ruleset>
