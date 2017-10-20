@@ -58,6 +58,7 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 						$nextCode = $tokens[$nextModifier]['code'];
 						if ($thisCode !== $nextCode && !in_array($nextCode, self::ALLOWED_NEXT_MODIFIER[$thisCode])) {
 							$phpcsFile->addError("Property visibility must be ordered from private to protected to public, found %s, next is %s", $stackPtr, 'VisibilityOrder', [token_name($thisCode), token_name($nextCode)]);
+
 							return;
 						}
 					}
