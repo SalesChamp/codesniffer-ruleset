@@ -20,7 +20,7 @@ trait FixEmptyLines
 				$phpcsFile->fixer->replaceToken($i, '');
 			}
 
-			$phpcsFile->fixer->replaceToken($i, str_repeat($phpcsFile->eolChar, $expected - 2));
+			$phpcsFile->fixer->replaceToken($i, str_repeat($phpcsFile->eolChar, max($expected - 2, 0)));
 			$phpcsFile->fixer->endChangeset();
 		}
 	}
