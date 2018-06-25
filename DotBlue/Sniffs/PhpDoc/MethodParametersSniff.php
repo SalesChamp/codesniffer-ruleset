@@ -2,11 +2,11 @@
 
 namespace DotBlue\Sniffs\PhpDoc;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 
-class MethodParametersSniff implements PHP_CodeSniffer_Sniff
+class MethodParametersSniff implements Sniff
 {
 
 	public function register()
@@ -18,7 +18,7 @@ class MethodParametersSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 
@@ -33,7 +33,7 @@ class MethodParametersSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	private function processParam(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $tokens)
+	private function processParam(File $phpcsFile, $stackPtr, $tokens)
 	{
 		$whitespace = $tokens[$stackPtr + 1]['content'];
 
@@ -65,7 +65,7 @@ class MethodParametersSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	private function processReturn(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $tokens)
+	private function processReturn(File $phpcsFile, $stackPtr, $tokens)
 	{
 		$whitespace = $tokens[$stackPtr + 1]['content'];
 

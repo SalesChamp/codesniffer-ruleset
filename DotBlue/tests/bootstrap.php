@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/../../vendor/squizlabs/php_codesniffer/autoload.php';
 
 Tester\Environment::setup();
 
@@ -11,6 +12,8 @@ DotBlue\CodeSniffer\Helpers\Tester::setup([
 	'fixerPath' => realpath(__DIR__ . '/../../vendor/bin/phpcbf'),
 	'sniffsDir' => realpath(__DIR__ . '/../../DotBlue/Sniffs/'),
 	'configData' => [
-		'spacing' => 3
+		'DotBlue\Sniffs\WhiteSpace\FunctionSpacingSniff' => [
+			'spacing' => 3
+		],
 	],
 ]);

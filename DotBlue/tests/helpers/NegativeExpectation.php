@@ -3,6 +3,7 @@
 namespace DotBlue\CodeSniffer\Helpers;
 
 use PHP_CodeSniffer;
+use PHP_CodeSniffer\Files\LocalFile;
 use Tester\Assert;
 
 
@@ -18,7 +19,7 @@ class NegativeExpectation implements Expectation
 	/** @var bool */
 	private $isFixable = FALSE;
 
-	/** @var PHP_CodeSniffer */
+	/** @var PHP_CodeSniffer\Runner */
 	private $sniffer;
 
 	/** @var TestedFile */
@@ -74,10 +75,7 @@ class NegativeExpectation implements Expectation
 
 
 
-	/**
-	 * @param  PHP_CodeSniffer
-	 */
-	public function evaluate(PHP_CodeSniffer $sniffer)
+	public function evaluate(PHP_CodeSniffer\Runner $sniffer)
 	{
 		$this->sniffer = $sniffer;
 		$this->testValid();
@@ -102,16 +100,18 @@ class NegativeExpectation implements Expectation
 
 	private function testValid()
 	{
-		$file = $this->sniffer->processFile(Tester::$setup['invalidDir'] . $this->testedFile->getName() . '.php');
+		$file = new LocalFile(Tester::$setup['invalidDir'] . $this->testedFile->getName() . '.php', $this->ruleset, $this->config);
+		$this->sniffer->processFile($file);
 		$errors = $file->getErrors();
-		Assert::false(empty($errors));
+		Assert::notEqual([], $errors);
 	}
 
 
 
 	private function testInvalid()
 	{
-		$file = $this->sniffer->processFile(Tester::$setup['validDir'] . $this->testedFile->getName() . '.php');
+		$file = new LocalFile(Tester::$setup['validDir'] . $this->testedFile->getName() . '.php', $this->ruleset, $this->config);
+		$this->sniffer->processFile($file);
 		$errors = $file->getErrors();
 
 		foreach ($this->expectedOnLines as $line) {

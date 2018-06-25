@@ -2,11 +2,11 @@
 
 namespace DotBlue\Sniffs\Php;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 
-class ForceEmptyConstructorParenthesesSniff implements PHP_CodeSniffer_Sniff
+class ForceEmptyConstructorParenthesesSniff implements Sniff
 {
 
 	public function register()
@@ -18,7 +18,7 @@ class ForceEmptyConstructorParenthesesSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 
@@ -31,7 +31,7 @@ class ForceEmptyConstructorParenthesesSniff implements PHP_CodeSniffer_Sniff
 		$hasParentheses = $phpcsFile->findNext(T_OPEN_PARENTHESIS, $stackPtr, $end);
 
 		if (!$hasParentheses) {
-			$fix = $phpcsFile->addFixableError('There must be parentheses after constructor call.', $stackPtr);
+			$fix = $phpcsFile->addFixableError('There must be parentheses after constructor call.', $stackPtr, 'EmptyParens');
 
 			if ($fix) {
 				$phpcsFile->fixer->beginChangeset();

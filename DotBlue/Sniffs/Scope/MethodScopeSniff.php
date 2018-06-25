@@ -2,15 +2,15 @@
 
 namespace DotBlue\Sniffs\Scope;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Tokens;
-use Squiz_Sniffs_Scope_MethodScopeSniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Util\Tokens;
+use PHP_CodeSniffer\Standards\Squiz;
 
 
-class MethodScopeSniff extends Squiz_Sniffs_Scope_MethodScopeSniff
+class MethodScopeSniff extends Squiz\Sniffs\Scope\MethodScopeSniff
 {
 
-	protected function processTokenWithinScope(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $currScope)
+	protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
 	{
 		$tokens = $phpcsFile->getTokens();
 
@@ -24,7 +24,7 @@ class MethodScopeSniff extends Squiz_Sniffs_Scope_MethodScopeSniff
 		for ($i = ($stackPtr - 1); $i > 0; $i--) {
 			if ($tokens[$i]['line'] < $tokens[$stackPtr]['line']) {
 				break;
-			} elseif (isset(PHP_CodeSniffer_Tokens::$scopeModifiers[$tokens[$i]['code']]) === TRUE) {
+			} elseif (isset(Tokens::$scopeModifiers[$tokens[$i]['code']]) === TRUE) {
 				$modifier = $i;
 				break;
 			}
@@ -58,7 +58,7 @@ class MethodScopeSniff extends Squiz_Sniffs_Scope_MethodScopeSniff
 
 
 
-	private function isInterface(PHP_CodeSniffer_File $phpcsFile)
+	private function isInterface(File $phpcsFile)
 	{
 		return $phpcsFile->findNext(T_INTERFACE, 0);
 	}

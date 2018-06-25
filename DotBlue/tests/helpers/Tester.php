@@ -46,16 +46,28 @@ class Tester
 		define('PHP_CODESNIFFER_CBF', TRUE);
 
 		foreach ($this->testedFiles as $testedFile) {
-			$sniffer = new PHP_CodeSniffer();
-			$sniffer->processRuleset(self::$setup['ruleset']);
+			$runner = new PHP_CodeSniffer\Runner();
+			$runner->config = new PHP_CodeSniffer\Config([
+				'-s',
+			]);
+			$runner->init();
+
+			$runner->reporter = new PHP_CodeSniffer\Reporter($runner->config);
 			if (!$testedFile->getSniff()) {
 				throw new Exception('Sniff file not set. Please set sniff by using ' . TestedFile::class . '::setSniff($sniff) method.');
 			}
-			$sniffer->registerSniffs([
+			$runner->ruleset->registerSniffs([
 				Tester::$setup['sniffsDir'] . '/' . str_replace('.', '/', $testedFile->getSniff()) . 'Sniff.php',
 			], [], []);
-			$sniffer->populateTokenListeners();
-			$testedFile->evaluate($sniffer);
+			$runner->ruleset->populateTokenListeners();
+			foreach ($runner->ruleset->sniffs as $class => $sniff) {
+				if (isset(Tester::$setup['configData'][$class])) {
+					foreach (Tester::$setup['configData'][$class] as $prop => $val) {
+						$sniff->$prop = $val;
+					}
+				}
+			}
+			$testedFile->evaluate($runner, $runner->ruleset, $runner->config);
 		}
 	}
 

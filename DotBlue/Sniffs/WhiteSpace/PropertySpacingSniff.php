@@ -2,12 +2,12 @@
 
 namespace DotBlue\Sniffs\WhiteSpace;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Tokens;
-use PHP_CodeSniffer_Standards_AbstractVariableSniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Util\Tokens;
+use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
 
 
-class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSniff
+class PropertySpacingSniff extends AbstractVariableSniff
 {
 
 	use FixEmptyLines;
@@ -22,11 +22,11 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 
 
 
-	protected function processMemberVar(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	protected function processMemberVar(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 
-		$modifier = $phpcsFile->findPrevious(PHP_CodeSniffer_Tokens::$scopeModifiers, $stackPtr);
+		$modifier = $phpcsFile->findPrevious(Tokens::$scopeModifiers, $stackPtr);
 
 		if ($modifier && ($tokens[$modifier]['line'] === $tokens[$stackPtr]['line'])) {
 			// ignore static for now
@@ -38,7 +38,7 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 			// find next declaration or docblock
 			$next = $phpcsFile->findNext(array_merge(
 				[T_DOC_COMMENT_OPEN_TAG],
-				PHP_CodeSniffer_Tokens::$scopeModifiers
+				Tokens::$scopeModifiers
 			), ($stackPtr + 1));
 			$semicolon = $phpcsFile->findNext(T_SEMICOLON, $stackPtr);
 			if ($next) {
@@ -52,7 +52,7 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 					// we want three empty lines between different
 					// visibility levels, otherwise two
 					$expected = 3;
-					$nextModifier = $phpcsFile->findNext(PHP_CodeSniffer_Tokens::$scopeModifiers, ($stackPtr + 1), $variable);
+					$nextModifier = $phpcsFile->findNext(Tokens::$scopeModifiers, ($stackPtr + 1), $variable);
 					if ($nextModifier) {
 						$thisCode = $tokens[$modifier]['code'];
 						$nextCode = $tokens[$nextModifier]['code'];
@@ -87,14 +87,14 @@ class PropertySpacingSniff extends PHP_CodeSniffer_Standards_AbstractVariableSni
 
 
 
-	protected function processVariable(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	protected function processVariable(File $phpcsFile, $stackPtr)
 	{
 		/* We don't care about normal variables. */
 	}
 
 
 
-	protected function processVariableInString(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	protected function processVariableInString(File $phpcsFile, $stackPtr)
 	{
 		/* We don't care about normal variables. */
 	}

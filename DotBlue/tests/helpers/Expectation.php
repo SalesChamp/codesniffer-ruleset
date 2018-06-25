@@ -33,10 +33,7 @@ interface Expectation
 
 
 
-	/**
-	 * @param  PHP_CodeSniffer
-	 */
-	function evaluate(PHP_CodeSniffer $sniffer);
+	function evaluate(PHP_CodeSniffer\Runner $sniffer);
 
 
 

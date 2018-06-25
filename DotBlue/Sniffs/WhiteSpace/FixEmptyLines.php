@@ -2,13 +2,13 @@
 
 namespace DotBlue\Sniffs\WhiteSpace;
 
-use PHP_CodeSniffer_File;
+use PHP_CodeSniffer\Files\File;
 
 
 trait FixEmptyLines
 {
 
-	private static function fixSpacing(PHP_CodeSniffer_File $phpcsFile, $updateFrom, $diff, $expected)
+	private static function fixSpacing(File $phpcsFile, $updateFrom, $diff, $expected)
 	{
 		if ($diff < $expected) {
 			$padding = str_repeat($phpcsFile->eolChar, $expected - $diff);

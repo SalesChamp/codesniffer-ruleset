@@ -2,10 +2,10 @@
 
 namespace DotBlue\Sniffs\Php;
 
-use Squiz_Sniffs_PHP_ForbiddenFunctionsSniff;
+use PHP_CodeSniffer\Standards\Squiz;
 
 
-class ForbiddenFunctionsSniff extends Squiz_Sniffs_PHP_ForbiddenFunctionsSniff
+class ForbiddenFunctionsSniff extends Squiz\Sniffs\PHP\DiscouragedFunctionsSniff
 {
 
 	public $forbiddenFunctions = [

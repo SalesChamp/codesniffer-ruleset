@@ -2,11 +2,11 @@
 
 namespace DotBlue\Sniffs\Classes;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 
-class ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
+class ClassDeclarationSniff implements Sniff
 {
 
 	public function register()
@@ -20,7 +20,7 @@ class ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 		$token = $tokens[$stackPtr];
@@ -29,7 +29,7 @@ class ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
 
 		if ($tokens[$token['scope_opener']]['line'] === $tokens[$token['scope_closer']]['line']) {
 			if ($tokens[$token['scope_opener']]['line'] !== $tokens[$stackPtr]['line']) {
- 				$phpcsFile->addError('Both opening and closing brace must be on same line as declaration in case of empty body.', $token['scope_opener']);
+				$phpcsFile->addError('Both opening and closing brace must be on same line as declaration in case of empty body.', $token['scope_opener'], 'EmptyBody');
 			}
 
 			return;
@@ -46,14 +46,14 @@ class ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	private function processOpen(PHP_CodeSniffer_File $phpcsFile, $opener)
+	private function processOpen(File $phpcsFile, $opener)
 	{
 		$tokens = $phpcsFile->getTokens();
 		$nextContent = $phpcsFile->findNext(T_WHITESPACE, ($opener + 1), NULL, TRUE);
 		$diff = $tokens[$nextContent]['line'] - $tokens[$opener]['line'];
 
 		if ($diff !== 2) {
-			$fix = $phpcsFile->addFixableError('There must be one empty line before the class body. Found ' . ($diff - 1), $opener);
+			$fix = $phpcsFile->addFixableError('There must be one empty line before the class body. Found ' . ($diff - 1), $opener, 'EmptyBeforeBody');
 
 			if ($fix) {
 				$phpcsFile->fixer->beginChangeset();
@@ -77,14 +77,14 @@ class ClassDeclarationSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	private function processClose(PHP_CodeSniffer_File $phpcsFile, $closer)
+	private function processClose(File $phpcsFile, $closer)
 	{
 		$tokens = $phpcsFile->getTokens();
 		$prevContent = $phpcsFile->findPrevious(T_WHITESPACE, ($closer - 1), NULL, TRUE);
 		$diff = $tokens[$closer]['line'] - $tokens[$prevContent]['line'];
 
 		if ($diff !== 2) {
-			$fix = $phpcsFile->addFixableError('There must be one empty line after the body. Found ' . ($diff - 1), $closer);
+			$fix = $phpcsFile->addFixableError('There must be one empty line after the body. Found ' . ($diff - 1), $closer, 'EmptyAfterBody');
 
 			if ($fix) {
 				$phpcsFile->fixer->beginChangeset();
