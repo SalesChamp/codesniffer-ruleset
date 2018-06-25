@@ -60,6 +60,13 @@ class Tester
 				Tester::$setup['sniffsDir'] . '/' . str_replace('.', '/', $testedFile->getSniff()) . 'Sniff.php',
 			], [], []);
 			$runner->ruleset->populateTokenListeners();
+			foreach ($runner->ruleset->sniffs as $class => $sniff) {
+				if (isset(Tester::$setup['configData'][$class])) {
+					foreach (Tester::$setup['configData'][$class] as $prop => $val) {
+						$sniff->$prop = $val;
+					}
+				}
+			}
 			$testedFile->evaluate($runner, $runner->ruleset, $runner->config);
 		}
 	}
