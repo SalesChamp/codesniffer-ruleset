@@ -103,7 +103,7 @@ class NegativeExpectation implements Expectation
 		$file = new LocalFile(Tester::$setup['invalidDir'] . $this->testedFile->getName() . '.php', $this->ruleset, $this->config);
 		$this->sniffer->processFile($file);
 		$errors = $file->getErrors();
-		Assert::false(empty($errors));
+		Assert::notEqual([], $errors);
 	}
 
 

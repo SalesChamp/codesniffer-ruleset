@@ -104,7 +104,7 @@ class PositiveExpectation implements Expectation
 		$file = new LocalFile(Tester::$setup['validDir'] . $this->testedFile->getName() . '.php', $this->sniffer->ruleset, $this->sniffer->config);
 		$this->sniffer->processFile($file);
 		$errors = $file->getErrors();
-		Assert::true(empty($errors));
+		Assert::equal([], $errors);
 	}
 
 
