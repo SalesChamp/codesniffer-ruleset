@@ -2,11 +2,11 @@
 
 namespace DotBlue\Sniffs\Php;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 
-class EmptyInlineMethodsSniff implements PHP_CodeSniffer_Sniff
+class EmptyInlineMethodsSniff implements Sniff
 {
 
 	public function register()
@@ -19,7 +19,7 @@ class EmptyInlineMethodsSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 
@@ -50,7 +50,7 @@ class EmptyInlineMethodsSniff implements PHP_CodeSniffer_Sniff
 		}
 
 		if ($hasBody) {
-			$phpcsFile->addError('Inline method is allowed only for methods without body', $openBrace);
+			$phpcsFile->addError('Inline method is allowed only for methods without body', $openBrace, 'EmptyInline');
 		}
 	}
 

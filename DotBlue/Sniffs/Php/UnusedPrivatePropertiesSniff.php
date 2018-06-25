@@ -2,11 +2,11 @@
 
 namespace DotBlue\Sniffs\Php;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 
-class UnusedPrivatePropertiesSniff implements PHP_CodeSniffer_Sniff
+class UnusedPrivatePropertiesSniff implements Sniff
 {
 
 	public function register()
@@ -18,7 +18,7 @@ class UnusedPrivatePropertiesSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 
@@ -69,9 +69,9 @@ class UnusedPrivatePropertiesSniff implements PHP_CodeSniffer_Sniff
 
 		if ($isUnused) {
 			if ($isStatic) {
-				$phpcsFile->addError(sprintf('Found unused private static property \'%s\'. You should remove it.', $propertyName), $stackPtr);
+				$phpcsFile->addError(sprintf('Found unused private static property \'%s\'. You should remove it.', $propertyName), $stackPtr, 'UnusedStatic');
 			} else {
-				$phpcsFile->addError(sprintf('Found unused private property \'$%s\'. You should remove it.', $propertyName), $stackPtr);
+				$phpcsFile->addError(sprintf('Found unused private property \'$%s\'. You should remove it.', $propertyName), $stackPtr, 'Unused');
 			}
 		}
 	}

@@ -1,15 +1,15 @@
 <?php
 
-namespace DotBlue\Sniffs\Namespaces;
+namespace DotBlueRuleset\Sniffs\Namespaces;
 
-use PHP_CodeSniffer_File;
-use PSR2_Sniffs_Namespaces_NamespaceDeclarationSniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Standards\PSR2;
 
 
-class NamespaceDeclarationSniff extends PSR2_Sniffs_Namespaces_NamespaceDeclarationSniff
+class NamespaceDeclarationSniff extends PSR2\Sniffs\Namespaces\NamespaceDeclarationSniff
 {
 
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 

@@ -2,11 +2,11 @@
 
 namespace DotBlue\Sniffs\WhiteSpace;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 
-class ReturnSpacingSniff implements PHP_CodeSniffer_Sniff
+class ReturnSpacingSniff implements Sniff
 {
 
 	use FixEmptyLines;
@@ -28,7 +28,7 @@ class ReturnSpacingSniff implements PHP_CodeSniffer_Sniff
 	/**
 	 * {@inheritdoc}
 	 */
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 		$prev = $phpcsFile->findPrevious(T_WHITESPACE, $stackPtr - 1, $stackPtr - 10, $exclude = TRUE);
@@ -40,14 +40,14 @@ class ReturnSpacingSniff implements PHP_CodeSniffer_Sniff
 		$lines = abs($tokens[$stackPtr]['line'] - $tokens[$prev]['line']);
 		if ($tokens[$prev]['code'] === T_OPEN_CURLY_BRACKET) {
 			if ($lines > 1) {
-				$fix = $phpcsFile->addFixableError('There must be no empty lines between the opening brace and the return statement. Found ' . ($lines - 1), $stackPtr);
+				$fix = $phpcsFile->addFixableError('There must be no empty lines between the opening brace and the return statement. Found ' . ($lines - 1), $stackPtr, 'NoEmptyOpening');
 				if ($fix) {
 					self::fixSpacing($phpcsFile, $prev, $lines, 3);
 				}
 			}
 		} elseif (in_array($tokens[$prev]['code'], [T_CLOSE_CURLY_BRACKET, T_SEMICOLON])) {
 			if ($lines !== 2) {
-				$fix = $phpcsFile->addFixableError('There must be one empty line between the closing brace or semicolon and the return statement. Found ' . ($lines - 1), $stackPtr);
+				$fix = $phpcsFile->addFixableError('There must be one empty line between the closing brace or semicolon and the return statement. Found ' . ($lines - 1), $stackPtr, 'NoEmptyClosing');
 				if ($fix) {
 					self::fixSpacing($phpcsFile, $prev, $lines, 2);
 				}

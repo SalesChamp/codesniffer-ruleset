@@ -23,9 +23,6 @@ $tester->setFile('UnusedPrivateStaticProperties')
 
 $tester->setFile('UnusedPrivatePropertiesMagicMethods')
 	->setSniff('Php.UnusedPrivateProperties')
-	->doNotExpectMessage('Found unused private property \'$x\'. You should remove it.')
-	->onLine(6)
-	->getFile()
 	->expectMessage('Found unused private property \'$x\'. You should remove it.')
 	->onLine(6);
 

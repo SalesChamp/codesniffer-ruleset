@@ -2,14 +2,14 @@
 
 namespace DotBlue\Sniffs\WhiteSpace;
 
-use PHP_CodeSniffer_File;
-use Squiz_Sniffs_WhiteSpace_FunctionSpacingSniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Standards\Squiz;
 
 
-class FunctionSpacingSniff extends Squiz_Sniffs_WhiteSpace_FunctionSpacingSniff
+class FunctionSpacingSniff extends Squiz\Sniffs\WhiteSpace\FunctionSpacingSniff
 {
 
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 		$this->spacing = (int) $this->spacing;

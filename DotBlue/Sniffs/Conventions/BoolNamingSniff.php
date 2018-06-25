@@ -2,11 +2,11 @@
 
 namespace DotBlue\Sniffs\Conventions;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 
-class BoolNamingSniff implements PHP_CodeSniffer_Sniff
+class BoolNamingSniff implements Sniff
 {
 
 	public function register()
@@ -18,12 +18,12 @@ class BoolNamingSniff implements PHP_CodeSniffer_Sniff
 
 
 
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 		$content = $tokens[$stackPtr]['content'];
 		if (preg_match('/boolean/', $content)) {
-			$fix = $phpcsFile->addFixableError('Usage of "boolean" is forbidden. Use "bool" instead.', $stackPtr);
+			$fix = $phpcsFile->addFixableError('Usage of "boolean" is forbidden. Use "bool" instead.', $stackPtr, 'NoBoolean');
 
 			if ($fix) {
 				$phpcsFile->fixer->beginChangeset();

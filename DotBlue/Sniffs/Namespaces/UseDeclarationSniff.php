@@ -2,14 +2,14 @@
 
 namespace DotBlue\Sniffs\Namespaces;
 
-use PHP_CodeSniffer_File;
-use PSR2_Sniffs_Namespaces_UseDeclarationSniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Standards\PSR2;
 
 
-class UseDeclarationSniff extends PSR2_Sniffs_Namespaces_UseDeclarationSniff
+class UseDeclarationSniff extends PSR2\Sniffs\Namespaces\UseDeclarationSniff
 {
 
-	public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
 		if ($this->shouldIgnoreUse($phpcsFile, $stackPtr) === TRUE) {
 			return;
@@ -94,7 +94,7 @@ class UseDeclarationSniff extends PSR2_Sniffs_Namespaces_UseDeclarationSniff
 
 
 
-	private function shouldIgnoreUse(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+	private function shouldIgnoreUse(File $phpcsFile, $stackPtr)
 	{
 		$tokens = $phpcsFile->getTokens();
 
