@@ -52,13 +52,10 @@ class TestedFile
 
 
 
-	/**
-	 * @param  PHP_CodeSniffer
-	 */
-	public function evaluate(PHP_CodeSniffer $sniffer)
+	public function evaluate(PHP_CodeSniffer\Runner $sniffer, PHP_CodeSniffer\Ruleset $ruleset, PHP_CodeSniffer\Config $config)
 	{
 		foreach ($this->expectations as $expectation) {
-			$expectation->evaluate($sniffer);
+			$expectation->evaluate($sniffer, $ruleset, $config);
 		}
 	}
 

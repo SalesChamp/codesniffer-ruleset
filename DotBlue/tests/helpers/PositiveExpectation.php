@@ -3,6 +3,7 @@
 namespace DotBlue\CodeSniffer\Helpers;
 
 use PHP_CodeSniffer;
+use PHP_CodeSniffer\Files\LocalFile;
 use Tester\Assert;
 
 
@@ -18,8 +19,14 @@ class PositiveExpectation implements Expectation
 	/** @var bool */
 	private $isFixable = FALSE;
 
-	/** @var PHP_CodeSniffer */
+	/** @var PHP_CodeSniffer\Runner */
 	private $sniffer;
+
+	/** @var PHP_CodeSniffer\Ruleset */
+	private $ruleset;
+
+	/** @var PHP_CodeSniffer\Config */
+	private $config;
 
 	/** @var TestedFile */
 	private $testedFile;
@@ -69,10 +76,7 @@ class PositiveExpectation implements Expectation
 
 
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function evaluate(PHP_CodeSniffer $sniffer)
+	public function evaluate(PHP_CodeSniffer\Runner $sniffer)
 	{
 		$this->sniffer = $sniffer;
 		$this->testValid();
@@ -97,7 +101,8 @@ class PositiveExpectation implements Expectation
 
 	private function testValid()
 	{
-		$file = $this->sniffer->processFile(Tester::$setup['validDir'] . $this->testedFile->getName() . '.php');
+		$file = new LocalFile(Tester::$setup['validDir'] . $this->testedFile->getName() . '.php', $this->sniffer->ruleset, $this->sniffer->config);
+		$this->sniffer->processFile($file);
 		$errors = $file->getErrors();
 		Assert::true(empty($errors));
 	}
@@ -106,7 +111,8 @@ class PositiveExpectation implements Expectation
 
 	private function testInvalid()
 	{
-		$file = $this->sniffer->processFile(Tester::$setup['invalidDir'] . $this->testedFile->getName() . '.php');
+		$file = new LocalFile(Tester::$setup['invalidDir'] . $this->testedFile->getName() . '.php', $this->sniffer->ruleset, $this->sniffer->config);
+		$this->sniffer->processFile($file);
 		$errors = $file->getErrors();
 
 		foreach ($this->expectedOnLines as $line) {
