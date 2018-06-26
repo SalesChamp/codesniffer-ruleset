@@ -29,6 +29,8 @@
 
     <rule ref="./../../../slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Classes/UnusedPrivateElementsSniff.php" />
 
+    <rule ref="./../../../slevomat/coding-standard/SlevomatCodingStandard/Sniffs/PHP/ShortListSniff.php" />
+
     <rule ref="./../../../wimg/php-compatibility/PHPCompatibility/ruleset.xml" />
 
     <rule ref="Squiz.Arrays.ArrayDeclaration">
