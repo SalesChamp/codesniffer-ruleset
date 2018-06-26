@@ -19,6 +19,7 @@
         <exclude name="DotBlue.Php.UnusedPrivateProperties" />
     </rule>
 
+    <rule ref="./../../../slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Namespaces/AlphabeticallySortedUsesSniff.php" />
     <rule ref="./../../../slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Namespaces/UnusedUsesSniff.php" />
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
       <properties>
